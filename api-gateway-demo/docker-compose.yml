@@ -1,0 +1,19 @@
+services:
+  gateway:
+    image: nginx:alpine
+    container_name: api_gateway
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - userservice
+      - orderservice
+
+  userservice:
+    build: ./userservice
+    container_name: user_service
+
+  orderservice:
+    build: ./orderservice
+    container_name: order_service
